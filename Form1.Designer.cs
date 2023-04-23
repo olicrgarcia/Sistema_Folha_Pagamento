@@ -104,9 +104,8 @@
             this.lblDesconto.AutoSize = true;
             this.lblDesconto.Location = new System.Drawing.Point(231, 154);
             this.lblDesconto.Name = "lblDesconto";
-            this.lblDesconto.Size = new System.Drawing.Size(105, 13);
+            this.lblDesconto.Size = new System.Drawing.Size(0, 13);
             this.lblDesconto.TabIndex = 7;
-            this.lblDesconto.Text = "Desconto aplicado: -";
             this.lblDesconto.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Form1
@@ -123,7 +122,7 @@
             this.Controls.Add(this.bntOK);
             this.Controls.Add(this.txNome);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Folha de Pagamento";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -28,7 +28,18 @@ namespace exeFolhaPagamento
             nvCalc.descIrrf();
 
             txtSlLiq.Text = (nvCalc.getLiqSalario()).ToString();
-            lblDesconto.Text = $"Desconto aplicado: {(nvCalc.getDesSalario()).ToString()}";
+
+            if (nvCalc.desSalario == 0)
+            {
+
+                lblDesconto.Text = $"Isento";
+                
+            }
+            else {
+                lblDesconto.Text = $"Desconto aplicado: R$ {(nvCalc.getDesSalario()).ToString()}";
+
+            }
+            
 
         }
     }

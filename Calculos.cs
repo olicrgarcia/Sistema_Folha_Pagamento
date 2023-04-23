@@ -17,29 +17,33 @@ namespace exeFolhaPagamento
         string nmFuncionario { get; set; }
 
 
-        public Calculos ()
+        public Calculos()
         {
-            
+
         }
 
-        public Calculos(double bssalario, double liqsalario, double dessalario, string nmfuncionario) { 
-        
+        public Calculos(double bssalario, double liqsalario, double dessalario, string nmfuncionario)
+        {
+
             bsSalario = bssalario;
             liqSalario = liqsalario;
             desSalario = dessalario;
             nmFuncionario = nmfuncionario;
-        
+
         }
 
-        public void setBsSalario(double bssalario) { 
+        public void setBsSalario(double bssalario)
+        {
             this.bsSalario = bssalario;
         }
 
-        public void setLiqSalario(double liqsalario) { 
+        public void setLiqSalario(double liqsalario)
+        {
             this.liqSalario = liqsalario;
         }
 
-        public void setDesSalario(double dessalario) {
+        public void setDesSalario(double dessalario)
+        {
             this.desSalario = dessalario;
         }
         public void setNmFuncionario(string nmfuncionario)
@@ -47,7 +51,8 @@ namespace exeFolhaPagamento
             this.nmFuncionario = nmfuncionario;
         }
 
-        public string getNmFuncionario() { 
+        public string getNmFuncionario()
+        {
             return this.nmFuncionario;
         }
 
@@ -56,32 +61,60 @@ namespace exeFolhaPagamento
             return this.bsSalario;
         }
 
-        public double getLiqSalario() {
+        public double getLiqSalario()
+        {
             return this.liqSalario;
         }
 
-        public double getDesSalario() {
+        public double getDesSalario()
+        {
             return this.desSalario;
         }
 
-        public void descIrrf() {
-            if (bsSalario >= 1908.98)
+        public void descIrrf()
+        {
+
+            switch (bsSalario)
             {
-                desSalario = Math.Round((bsSalario * 7.5 / 100) - 142.52, 2);
-                liqSalario = Math.Round(bsSalario - desSalario, 2);
 
-            }
-            else {
+                case double bsSalario when (bsSalario <= 1908.98):
+                    liqSalario = bsSalario;
+                    break;
 
-                liqSalario = bsSalario;
+                case double bsSalario when (bsSalario > 1908.98 && bsSalario  <= 2826.65):
+
+                    desSalario = Math.Round((bsSalario * 7.5 / 100) - 142.8, 2);
+                    liqSalario = Math.Round(bsSalario - desSalario, 2);
+                    break;
+
+                case double bsSalario when (bsSalario > 2826.65 && bsSalario <= 3751.05):
+
+                    desSalario = Math.Round((bsSalario * 15 / 100) - 354.8, 2);
+                    liqSalario = Math.Round(bsSalario - desSalario, 2);
+                    break;
+
+                case double bsSalario when (bsSalario > 3751.05 && bsSalario <= 4664.68):
+
+                    desSalario = Math.Round((bsSalario * 22.5 / 100) - 636.13, 2);
+                    liqSalario = Math.Round(bsSalario - desSalario, 2);
+                    break;
+
+                case double bsSalario when (bsSalario > 4664.68):
+
+                    desSalario = Math.Round((bsSalario * 27.5 / 100) - 869.36, 2);
+                    liqSalario = Math.Round(bsSalario - desSalario, 2);
+                    break;
+
+
+                default:
+                    liqSalario = bsSalario;
+                    break;
             }
-            
-        
+
+
+
+
+
         }
-
-
-
-
-
     }
 }
