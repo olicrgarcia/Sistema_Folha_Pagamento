@@ -26,20 +26,21 @@ namespace exeFolhaPagamento
             nvCalc.setBsSalario(double.Parse(txtSlBase.Text));
 
             nvCalc.descIrrf();
+            nvCalc.calcHorasExtras(int.Parse(txHoraMensal.Text), double.Parse(txVlHE.Text), int.Parse(txQtdHE.Text));
 
-            txtSlLiq.Text = (nvCalc.getLiqSalario()).ToString();
+            lblBsSalario.Text = (nvCalc.getBsSalario()).ToString();
+            lblHERecebe.Text = (nvCalc.getHorasExtras()).ToString();
+            lblLiqSalario.Text = (nvCalc.getLiqSalario()).ToString();
 
             if (nvCalc.desSalario == 0)
             {
-
-                lblDesconto.Text = $"Isento";
+                lblImpRenda.Text = $"Isento";
                 
             }
             else {
-                lblDesconto.Text = $"Desconto aplicado: R$ {(nvCalc.getDesSalario()).ToString()}";
+                lblImpRenda.Text = $"R$ {(nvCalc.getDesSalario()).ToString()}";
 
             }
-            
 
         }
     }

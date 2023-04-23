@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,7 @@ namespace exeFolhaPagamento
         public double bsSalario { get; set; }
         public double liqSalario { get; set; }
         public double desSalario { get; set; }
+        public double horasExtras { get; set; }
         string nmFuncionario { get; set; }
 
 
@@ -22,13 +24,14 @@ namespace exeFolhaPagamento
 
         }
 
-        public Calculos(double bssalario, double liqsalario, double dessalario, string nmfuncionario)
+        public Calculos(double bssalario, double liqsalario, double dessalario, string nmfuncionario, double horasextras)
         {
 
             bsSalario = bssalario;
             liqSalario = liqsalario;
             desSalario = dessalario;
             nmFuncionario = nmfuncionario;
+            horasExtras = horasextras;
 
         }
 
@@ -50,6 +53,11 @@ namespace exeFolhaPagamento
         {
             this.nmFuncionario = nmfuncionario;
         }
+        public void setHorasExtras(double horasextras)
+        {
+            this.horasExtras = horasextras;
+        }
+
 
         public string getNmFuncionario()
         {
@@ -71,6 +79,25 @@ namespace exeFolhaPagamento
             return this.desSalario;
         }
 
+        public double getHorasExtras()
+        {
+            return this.horasExtras;
+        }
+
+        public void resLiqSalario()
+        {
+
+        }
+
+        public void calcHorasExtras(int horasMensais, double percHExtra, int qtdHExtra) {
+
+            double vlHoraNormal = bsSalario / horasMensais;
+            double vlHoraExtra = vlHoraNormal + (vlHoraNormal * percHExtra / 100);
+            horasExtras = Math.Round(vlHoraExtra * qtdHExtra,2);
+            liqSalario = liqSalario + horasExtras;
+            
+        }
+
         public void descIrrf()
         {
 
@@ -78,7 +105,7 @@ namespace exeFolhaPagamento
             {
 
                 case double bsSalario when (bsSalario <= 1908.98):
-                    liqSalario = bsSalario;
+                    desSalario = 0;
                     break;
 
                 case double bsSalario when (bsSalario > 1908.98 && bsSalario  <= 2826.65):
@@ -105,13 +132,9 @@ namespace exeFolhaPagamento
                     liqSalario = Math.Round(bsSalario - desSalario, 2);
                     break;
 
-
-                default:
-                    liqSalario = bsSalario;
-                    break;
             }
 
-
+            
 
 
 
