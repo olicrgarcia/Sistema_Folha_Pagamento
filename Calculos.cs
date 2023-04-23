@@ -11,11 +11,12 @@ namespace exeFolhaPagamento
 {
     internal class Calculos
     {
-
+        //Criando os atributos
         public double bsSalario { get; set; }
         public double liqSalario { get; set; }
         public double desSalario { get; set; }
         public double horasExtras { get; set; }
+        public double dsrReceber {get; set; }
         string nmFuncionario { get; set; }
 
 
@@ -24,7 +25,9 @@ namespace exeFolhaPagamento
 
         }
 
-        public Calculos(double bssalario, double liqsalario, double dessalario, string nmfuncionario, double horasextras)
+        public Calculos(double bssalario, double liqsalario,
+            double dessalario, string nmfuncionario, 
+            double horasextras, double dsrreceber)
         {
 
             bsSalario = bssalario;
@@ -32,8 +35,11 @@ namespace exeFolhaPagamento
             desSalario = dessalario;
             nmFuncionario = nmfuncionario;
             horasExtras = horasextras;
+            dsrReceber = dsrreceber;
 
         }
+
+        //Declarando os atributos
 
         public void setBsSalario(double bssalario)
         {
@@ -56,6 +62,9 @@ namespace exeFolhaPagamento
         public void setHorasExtras(double horasextras)
         {
             this.horasExtras = horasextras;
+        }
+        public void setDsrReceber(double dsrreceber) {
+            this.dsrReceber = dsrreceber;
         }
 
 
@@ -83,19 +92,30 @@ namespace exeFolhaPagamento
         {
             return this.horasExtras;
         }
-
-        public void resLiqSalario()
+        public double getDsrReceber()
         {
-
+            return this.dsrReceber;
         }
 
+        //Cálculos para Folha de Pagamento
+
+
+        public void calcLiqSalario() {
+            liqSalario = (bsSalario - desSalario) + horasExtras + dsrReceber;
+        
+        }
         public void calcHorasExtras(int horasMensais, double percHExtra, int qtdHExtra) {
 
             double vlHoraNormal = bsSalario / horasMensais;
             double vlHoraExtra = vlHoraNormal + (vlHoraNormal * percHExtra / 100);
             horasExtras = Math.Round(vlHoraExtra * qtdHExtra,2);
-            liqSalario = liqSalario + horasExtras;
             
+        }
+
+        public void calcDSR(int diasTrab, int diasNTrab)
+        {
+            dsrReceber = Math.Round((horasExtras / diasTrab) * diasNTrab, 2);
+
         }
 
         public void descIrrf()
@@ -108,28 +128,24 @@ namespace exeFolhaPagamento
                     desSalario = 0;
                     break;
 
-                case double bsSalario when (bsSalario > 1908.98 && bsSalario  <= 2826.65):
+                case double bsSalario when (bsSalario > 1908.98 && bsSalario <= 2826.65):
 
                     desSalario = Math.Round((bsSalario * 7.5 / 100) - 142.8, 2);
-                    liqSalario = Math.Round(bsSalario - desSalario, 2);
                     break;
 
                 case double bsSalario when (bsSalario > 2826.65 && bsSalario <= 3751.05):
 
                     desSalario = Math.Round((bsSalario * 15 / 100) - 354.8, 2);
-                    liqSalario = Math.Round(bsSalario - desSalario, 2);
                     break;
 
                 case double bsSalario when (bsSalario > 3751.05 && bsSalario <= 4664.68):
 
                     desSalario = Math.Round((bsSalario * 22.5 / 100) - 636.13, 2);
-                    liqSalario = Math.Round(bsSalario - desSalario, 2);
                     break;
 
                 case double bsSalario when (bsSalario > 4664.68):
 
                     desSalario = Math.Round((bsSalario * 27.5 / 100) - 869.36, 2);
-                    liqSalario = Math.Round(bsSalario - desSalario, 2);
                     break;
 
             }
@@ -139,5 +155,7 @@ namespace exeFolhaPagamento
 
 
         }
+
+
     }
 }

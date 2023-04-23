@@ -24,12 +24,15 @@ namespace exeFolhaPagamento
 
             nvCalc.setNmFuncionario(txNome.Text);
             nvCalc.setBsSalario(double.Parse(txtSlBase.Text));
-
-            nvCalc.descIrrf();
+            
             nvCalc.calcHorasExtras(int.Parse(txHoraMensal.Text), double.Parse(txVlHE.Text), int.Parse(txQtdHE.Text));
+            nvCalc.calcDSR(int.Parse(txDiasTrab.Text), int.Parse(txDiasNTrab.Text));
+            nvCalc.descIrrf();
+            nvCalc.calcLiqSalario();
 
             lblBsSalario.Text = (nvCalc.getBsSalario()).ToString();
             lblHERecebe.Text = (nvCalc.getHorasExtras()).ToString();
+            lblDsrRecebe.Text = (nvCalc.getDsrReceber()).ToString();
             lblLiqSalario.Text = (nvCalc.getLiqSalario()).ToString();
 
             if (nvCalc.desSalario == 0)
