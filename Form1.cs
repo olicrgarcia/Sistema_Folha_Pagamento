@@ -18,16 +18,17 @@ namespace exeFolhaPagamento
             InitializeComponent();
         }
 
-        Calculos calc =  new Calculos();
-
         private void bntOK_Click(object sender, EventArgs e)
         {
-            
+            Calculos nvCalc = new Calculos();
 
-        }
+            nvCalc.setNmFuncionario(txNome.Text);
+            nvCalc.setBsSalario(double.Parse(txtSlBase.Text));
 
-        private void txInput_TextChanged(object sender, EventArgs e)
-        {
+            nvCalc.descIrrf();
+
+            txtSlLiq.Text = (nvCalc.getLiqSalario()).ToString();
+            lblDesconto.Text = $"Desconto aplicado: {(nvCalc.getDesSalario()).ToString()}";
 
         }
     }
